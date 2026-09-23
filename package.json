@@ -1,6 +1,7 @@
 {
     "name": "cse340-practice-zurcher",
     "dependencies": {
+        "ejs": "^6.0.1",
         "express": "^5.2.1"
     },
     "scripts": {
@@ -9,6 +10,7 @@
     },
     "type": "module",
     "devDependencies": {
-        "nodemon": "^3.1.14"
+        "nodemon": "^3.1.14",
+        "ws": "^8.21.3"
     }
 }
