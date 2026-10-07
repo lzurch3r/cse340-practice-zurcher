@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+<main>
+    <h1>Faculty List</h1>
+    <p>Browse a list of BYU-Idaho faculty members and click on any name to view more detailed information including office, email, and department.</p>
+
+    <div class="faculty-list">
+        <% Object.values(faculty).forEach(facultyMember => { %>
+            <div class="faculty-card">
+                <h3><a href="/catalog/<%= faculty %>"><%= facultyMember.name %></a></h3>
+                <p class="faculty-name"><%= facultyMember.name %></p>
+                <p class="faculty-department"><%= facultyMember.department %></p>
+                <p class="faculty-title"><%= facultyMember.title %></p>
+            </div>
+        <% }); %>
+    </div> 
+    <!-- TODO: include navigation back to main site if missing -->
+</main>
+<%- include('../partials/footer') %>
