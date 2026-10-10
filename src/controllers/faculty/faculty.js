@@ -1,17 +1,19 @@
-import { getAllFaculty, getFacultyById, getSortedFaculty } from '../../models/faculty/faculty.js';
+import { getFacultyById, getSortedFaculty } from '../../models/faculty/faculty.js';
 
 // Route handler for the faculty list page
 const facultyListPage = (req, res) => {
-    const faculty = getAllFaculty();
+    const sortBy = req.query.sort || 'name'; // Default sort is 'name'
+    const faculty = getSortedFaculty(sortBy); //Returns an array of sorted faculty members
 
     res.render('faculty/list', {
-        title: 'Faculty',
-        faculty: faculty
+        title: 'Faculty Directory',
+        faculty: faculty,
+        currentSort: sortBy
     });
 };
 
 // Route handler for individual faculty detail pages
-const facultyDetailsPage = (req,res, next) => {
+const facultyDetailsPage = (req, res, next) => {
     const facultyId = req.params.facultyId;
     const faculty = getFacultyById(facultyId);
 
@@ -22,14 +24,9 @@ const facultyDetailsPage = (req,res, next) => {
         return next(err);
     };
 
-    //Handle sorting if requested
-    const sortBy = req.query.sort || 'name';
-    const sortedFaculty = getSortedFaculty(faculty, sortBy);
-
-    res.render('faculty-detail', {
-        // [ ] TODO: decide whether to add more info here than just 'name'
+    res.render('faculty/detail', {
         title: `${faculty.name}`,
-        currentSort: sortBy
+        faculty
     });
 };
 

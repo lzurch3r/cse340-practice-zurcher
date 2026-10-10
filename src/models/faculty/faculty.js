@@ -74,18 +74,13 @@ const faculty = {
     }
 };
 
-const getAllFaculty = () => {
-    return faculty;
-}
-
 const getFacultyById = (facultyId) => {
     // Look up faculty member by ID, return null if not found
     return faculty[facultyId] || null;
 };
 
 const getSortedFaculty = (sortBy) => {
-    // [ ] TODO: Validate sortBy parameter (name, department, or title), default to 'name' if invalid
-    if (!sortBy) {
+    if (!sortBy || (sortBy != 'name' && sortBy != 'department' && sortBy != 'title')) {
         sortBy = 'name';
     }
 
@@ -112,4 +107,4 @@ const getSortedFaculty = (sortBy) => {
     return facultyArray;
 };
 
-export { getAllFaculty, getFacultyById, getSortedFaculty };
+export { getFacultyById, getSortedFaculty };
