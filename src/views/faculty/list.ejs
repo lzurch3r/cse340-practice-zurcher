@@ -13,10 +13,10 @@
     <div class="faculty-list">
         <% Object.values(faculty).forEach(facultyMember => { %>
             <div class="faculty-card">
-                <h3><a href="/faculty/<%= facultyMember.id %>"><%= facultyMember.name %></a></h3>
+                <h3><a href="/faculty/<%= facultyMember.slug %>"><%= facultyMember.name %></a></h3>
                 <p class="faculty-name"><%= facultyMember.name %></p>
-                <p class="faculty-department"><%= facultyMember.department %></p>
-                <p class="faculty-title"><%= facultyMember.title %></p>
+                <p class="faculty-department">Department: <%= facultyMember.department %></p>
+                <p class="faculty-title">Title: <%= facultyMember.title %></p>
             </div>
         <% }); %>
     </div>
