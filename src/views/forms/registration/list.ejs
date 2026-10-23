@@ -1,0 +1,51 @@
+<%- include('../../partials/header') %>
+<main>
+    <h1><%= title %></h1>
+
+    <!-- COMPLETE: Check if users array exists and has content using: if (users && users.length > 0) -->
+    <% if (users && users.length > 0) { %>
+        <div class="users-list">
+            <!-- COMPLETE: Loop through users array with forEach -->
+            <!-- For each user in the loop, create this structure: -->
+            <% Object.values(users).forEach(user => { %>
+
+                <div class="user-card">
+                    <div class="user-header">
+                        <!-- COMPLETE: Add h3 with user's name -->
+                        <!-- COMPLETE: Add span with class="user-id" showing: ID: user.id -->
+                         <h3><%= user.name %></h3>
+                         <span class="user-id">ID: <%= user.id %></span>
+                    </div>
+
+                    <div class="user-details">
+                        <div class="detail-item">
+                            <!-- COMPLETE: Add div with class="label" containing: Email -->
+                            <!-- COMPLETE: Add div with class="value" containing: user.email -->
+                             <div class="label">E-mail</div>
+                             <div class="value"><%= user.email %></div>
+                        </div>
+
+                        <div class="detail-item">
+                            <!-- COMPLETE: Add div with class="label" containing: Registered -->
+                            <!-- CHECK FOR COMPLETION: Add div with class="value" containing formatted date -->
+                            <!-- HINT: Use new Date(user.created_at).toLocaleDateString() -->
+                            <div class="label">Registered</div>
+                            <div class="value"><%= new Date(user.created_at).toLocaleDateString() %></div>
+                        </div>
+                    </div>
+                </div>
+
+            <!-- COMPLETE: End the forEach loop -->
+            <% }); %>
+        </div>
+
+    <!-- COMPLETE: Add else clause -->
+    <% } else { %>
+        <!-- COMPLETE: Add paragraph with class="no-users" -->
+        <!-- COMPLETE: Display message: "No users registered yet." -->
+        <p class="no-users">No users registered yet.</p>
+    <!-- COMPLETE: Close the if/else block -->
+    <% } %>
+
+</main>
+<%- include('../../partials/footer') %>
