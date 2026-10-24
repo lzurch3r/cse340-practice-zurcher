@@ -64,7 +64,7 @@ const processRegistration = async (req, res) => {
 
     try {
         // Check if email already exists in database
-        // CHECK FOR COMPLETION: Call emailExists(email) and store the result in a variable
+        // COMPLETE: Call emailExists(email) and store the result in a variable
         const emailChecker = await emailExists(email);
 
         if (emailChecker) {
@@ -118,7 +118,7 @@ const showAllUsers = async (req, res) => {
     // COMPLETE: Pass title: 'Registered Users' and the users variable in the data object
     res.render('forms/registration/list', {
         title: 'Registered Users',
-        users: users
+        users
     })
 };
 
