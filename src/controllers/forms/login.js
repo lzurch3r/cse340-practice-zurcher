@@ -49,7 +49,7 @@ const processLogin = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        // CHECK FOR COMPLETION: Find user by email using findUserByEmail()
+        // COMPLETE: Find user by email using findUserByEmail()
         // COMPLETE: If not found, log "User not found" and redirect to /login
         const user = await findUserByEmail(email);
         if (!user) {
@@ -141,7 +141,7 @@ const showDashboard = (req, res) => {
         delete sessionData.user.password;
     }
 
-    // CHECK FOR COMPLETION: Render the dashboard view (dashboard)
+    // COMPLETE: Render the dashboard view (dashboard)
     // COMPLETE: Pass title: 'Dashboard', user, and sessionData to template
     res.render('dashboard', {
         title: 'Dashboard',

@@ -31,7 +31,7 @@ const findUserByEmail = async (email) => {
  * @returns {Promise<boolean>} True if password matches, false otherwise
  */
 const verifyPassword = async (plainPassword, hashedPassword) => {
-    // CHECK FOR COMPLETION: Use bcrypt.compare() to verify the password
+    // COMPLETE: Use bcrypt.compare() to verify the password
     // COMPLETE: Return the result (true/false)
     const verified = await bcrypt.compare(plainPassword, hashedPassword);
     const message = verified ? 'Password Verified' : "Password Not Verified";
