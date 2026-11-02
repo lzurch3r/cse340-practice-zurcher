@@ -53,7 +53,9 @@ const processRegistration = async (req, res) => {
 
     if (!errors.isEmpty()) {
         // COMPLETE: Log validation errors to console for debugging
-        console.error('Validation errors:', errors.array());
+            errors.array().forEach(error => {
+            req.flash('error', error.msg);
+        });
         // COMPLETE: Redirect back to /register
         return res.redirect('/register');
     }
@@ -69,7 +71,7 @@ const processRegistration = async (req, res) => {
 
         if (emailChecker) {
             // COMPLETE: Log message: 'Email already registered'
-            console.log('Email already registered');
+            req.flash('warning', 'This account already exists')
             // COMPLETE: Redirect back to /register
             return res.redirect('/register');
         }
@@ -84,16 +86,16 @@ const processRegistration = async (req, res) => {
         await saveUser(name, email, hashedPassword);
 
         // COMPLETE: Log success message to console
-        console.log('User registered successfully');
+        req.flash('success', 'User registered successfully');
 
         // COMPLETE: Redirect to /register/list to show successful registration
         // NOTE: Later when we add authentication, we'll change this to require login first
-        res.redirect('/register/list');
+        return res.redirect('/login');
     } catch (error) {
         // COMPLETE: Log the error to console
         console.error(error);
-        // COMPLETE: Redirect back to /register
-        res.redirect('/register');
+        req.flash('error', 'Unable to register user. Please try again later.')
+        return res.redirect('/register');
     }
 };
 
@@ -110,6 +112,7 @@ const showAllUsers = async (req, res) => {
     } catch (error) {
         // COMPLETE: Log the error to console
         console.error(error);
+        req.flash('error', 'Unable to retrieve user list. Please reload or try again later.')
         // users remains empty array on error
         users = [];
     }

@@ -38,45 +38,52 @@ const processLogin = async (req, res) => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        // COMPLETE: Log validation errors to console
-        // COMPLETE: Redirect back to /login
-        console.error(errors);
-        res.redirect('/login');
-        return;
+        // Log validation errors to console
+        // Redirect back to /login
+        errors.array().forEach(error => {
+        req.flash('error', error.msg);
+    });
+        
+        return res.redirect('/login');
     }
 
-    // COMPLETE: Extract email and password from req.body
+    // Extract email and password from req.body
     const { email, password } = req.body;
 
     try {
-        // COMPLETE: Find user by email using findUserByEmail()
-        // COMPLETE: If not found, log "User not found" and redirect to /login
+        // Find user by email using findUserByEmail()
+        // If not found, log "User not found" and redirect to /login
         const user = await findUserByEmail(email);
         if (!user) {
-            console.log("User not found");
-            res.redirect('/login');
+            console.log('User not found');
+            req.flash('error', 'Invalid e-mail or password');
+            return res.redirect('/login');
         }
 
-        // COMPLETE: Verify password using verifyPassword(password, user.password)
-        // COMPLETE: If password incorrect, log "Invalid password" and redirect to /login
-        const verified = verifyPassword(password, user.password);
+        // Verify password using verifyPassword(password, user.password)
+        // If password incorrect, log "Invalid password" and redirect to /login
+        const verified = await verifyPassword(password, user.password);
         if (!verified) {
-            console.log("Invalid password");
-            res.redirect('/login');
+            req.flash('error', 'Invalid e-mail or password');
+            return res.redirect('/login');
         }
 
         // SECURITY: Remove password from user object before storing in session
         delete user.password;
 
-        // COMPLETE: Store user in session: req.session.user = user
-        // COMPLETE: Redirect to /dashboard
+        
+        // Store user in session: req.session.user = user
+        // Redirect to /dashboard
         req.session.user = user;
+        // Personalize and display a flash message on successful login
+        req.flash('success',`Welcome, ${user.name}!`);
         res.redirect('/dashboard');
     } catch (error) {
         // Model functions do not catch errors, so handle them here
-        // COMPLETE: Log error to console
-        // COMPLETE: Redirect to /login
+        // Log error to console
         console.error(error);
+        req.flash('error', 'Invalid e-mail or password');
+        // Redirect to /login
         res.redirect('/login');
     }
 };

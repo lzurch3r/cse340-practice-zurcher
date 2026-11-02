@@ -15,8 +15,6 @@ import { Router } from 'express';
 // Create a new router instance
 const router = Router();
 
-
-
 /*********************
  * Route-specific middleware
  **********************/
