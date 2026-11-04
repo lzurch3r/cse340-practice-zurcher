@@ -8,15 +8,17 @@ import db from '../db.js';
  * @returns {Promise<Object|null>} User object with password hash or null if not found
  */
 const findUserByEmail = async (email) => {
-    // COMPLETE: Write SELECT query for id, name, email, password, created_at
-    // COMPLETE: Use LOWER() on both sides for case-insensitive email comparison
-    // COMPLETE: Use $1 placeholder for email parameter
-    // COMPLETE: Add LIMIT 1 to ensure only one result
-    // COMPLETE: Execute query and return first row or null
     const query = `
-        SELECT id, name, email, password, created_at
+        SELECT 
+            users.id, 
+            users.name, 
+            users.email, 
+            users.password, 
+            users.created_at,
+            roles.role_name AS "roleName"
         FROM users
-        WHERE LOWER(email) = LOWER($1)
+        INNER JOIN roles ON users.role_id = roles.id
+        WHERE LOWER(users.email) = LOWER($1)
         LIMIT 1
     `;
     const result = await db.query(query, [email]);
@@ -31,8 +33,8 @@ const findUserByEmail = async (email) => {
  * @returns {Promise<boolean>} True if password matches, false otherwise
  */
 const verifyPassword = async (plainPassword, hashedPassword) => {
-    // COMPLETE: Use bcrypt.compare() to verify the password
-    // COMPLETE: Return the result (true/false)
+    // Use bcrypt.compare() to verify the password
+    // Return the result (true/false)
     const verified = await bcrypt.compare(plainPassword, hashedPassword);
     const message = verified ? 'Password Verified' : "Password Not Verified";
     console.log(message);

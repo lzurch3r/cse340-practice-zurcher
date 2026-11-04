@@ -8,19 +8,26 @@
 
         <div class="user-info">
             <h2>Your Account Information</h2>
-            <!-- COMPLETE: Display user.name in a div with class="user-detail" -->
-            <!-- COMPLETE: Use span with class="label" for "Name:" and span with class="value" for the actual name -->
-            <!-- COMPLETE: Display user.email in the same format -->
-            <!-- COMPLETE: Display user.created_at formatted with toLocaleDateString() -->
+            <!-- Display user.name in a div with class="user-detail" -->
+            <!-- Use span with class="label" for "Name:" and span with class="value" for the actual name -->
+            <!-- Display user.email in the same format -->
+            <!-- Display user.created_at formatted with toLocaleDateString() -->
             <div class="user-detail">
                 <span class="label">Name:</span>
                 <span class="value"><%= user.name %></span>
+                <br>
                 
                 <span class="label">E-mail:</span>
                 <span class="value"><%= user.email %></span>
+                <br>
+
+                <span class="label">Role:</span>
+                <span class="value"><%= user.roleName %></span>
+                <br>
 
                 <span class="label">Login Date:</span>
                 <span class="value"><%= new Date(user.created_at).toLocaleDateString() %></span>
+                <br>
             </div>
         </div>
 
